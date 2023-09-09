@@ -1,14 +1,19 @@
-// brewery.js
+
 const breweryBaseUrl = 'https://api.openbrewerydb.org';
 
 let breweryCurrentPage = 1;
 const breweryItemsPerPage = 3;
 let breweries = [];
+function goBack() {
+    window.location.href = 'index.html';
+}
+
 
 async function fetchBreweriesByCity(city, page = 1) {
     const breweryList = document.getElementById('breweryList');
     const prevBreweryButton = document.getElementById('prevBreweryButton');
     const nextBreweryButton = document.getElementById('nextBreweryButton');
+    const backButton = document.getElementById('backButton')
 
     try {
         const response = await fetch(`${breweryBaseUrl}/breweries?by_city=${city}&per_page=50&page=${page}`);
@@ -85,6 +90,7 @@ function renderBreweries(page) {
             renderBreweries(breweryCurrentPage);
         }
     });
+    backButton.addEventListener('click', goBack);
 }
 
 
